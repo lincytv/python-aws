@@ -1,0 +1,19 @@
+---
+- hosts: [ehour]
+  
+  tasks: 
+    - name: installing base package
+      apt: name={{ item }} state==present
+      with_items:
+        - default-jre
+        - default-jdk
+        - tomcat7
+        - mysql-server
+        - mysql-client
+        - mysql-common
+        - python-mysqldb
+    - name: service starting
+      service: name={{item}} state=started enable=true
+      with_items:
+        - tomcat7
+        - mysql
